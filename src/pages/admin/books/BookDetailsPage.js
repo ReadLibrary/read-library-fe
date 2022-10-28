@@ -1,7 +1,14 @@
 import React from "react";
+import AdminBookDetails from "../../../components/admins/books/AdminBookDetails";
+
+
 
 const BookDetailsPage = () => {
-  return <div>BookDetailsPage</div>;
+<>
+
+<AdminBookDetails/>
+
+</>
 };
 
 export default BookDetailsPage;
