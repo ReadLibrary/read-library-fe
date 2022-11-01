@@ -1,6 +1,14 @@
 @use "../../../assets/scss/mixins" as m;
 @use "../../../assets/scss/variables" as v;
 
+.brdcrmp {
+  background-color: v.$color2;
+  a,
+  .active {
+    color: white !important;
+  }
+}
+
 .admin-navbar {
   padding: 2rem !important;
 
@@ -12,6 +20,7 @@
   .container {
     @media (min-width: 992px) {
       align-items: flex-start !important;
+      flex-direction: column;
     }
 
     .navbar-brand {
@@ -33,9 +42,12 @@
 
       .nav-link {
         color: v.$color3 !important;
+        display: flex;
+        padding: 0;
 
         svg {
           color: v.$color2;
+          margin-top: 3px;
         }
       }
     }

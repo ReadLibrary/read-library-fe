@@ -2,7 +2,7 @@ import React from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import "./adminMenu.scss";
-import logo from "../../../assets/img/logo/logoReadLib.png";
+import logo from "../../../assets/img/logo/logo1.png";
 import { RiLogoutCircleRLine, RiDashboardLine } from "react-icons/ri";
 import { useDispatch } from "react-redux";
 import secureLocalStorage from "react-secure-storage";
@@ -53,7 +53,7 @@ const AdminMenu = () => {
             <Nav.Link as={Link} to="/admin/reports">
               Reports
             </Nav.Link>
-            <Nav.Link as={Link} to="artofcoding.com">
+            <Nav.Link as={Link} to="trartofcoding.com">
               Web Site
             </Nav.Link>
             <Nav.Link onClick={handleLogout}>

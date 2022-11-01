@@ -4,6 +4,8 @@ import BookDetailsPage from "../pages/admin/books/BookDetailsPage";
 import BookEditPage from "../pages/admin/books/BookEditPage";
 import BooksPage from "../pages/admin/books/BooksPage";
 import DashBoardPage from "../pages/admin/dashboard/DashBoardPage";
+import PublisherEditPage from "../pages/admin/publishers/PublisherEditPage";
+import PublisherPage from "../pages/admin/publishers/PublisherPage";
 import UserEditPage from "../pages/admin/users/UserEditPage";
 import UsersPage from "../pages/admin/users/UsersPage";
 import AdminTemplate from "../templates/AdminTemplate";
@@ -23,6 +25,26 @@ const CustomRoutes = () => {
                   <DashBoardPage />
                 </AdminTemplate>
                 /*   </ProtectedRoute> */
+              }
+            />
+            <Route
+              path="publishers"
+              element={
+                /*  <ProtectedRoute admin={true}> */
+                <AdminTemplate>
+                  <PublisherPage />
+                </AdminTemplate>
+                /*    </ProtectedRoute> */
+              }
+            />
+            <Route
+              path="publisher-edit-page"
+              element={
+                /*  <ProtectedRoute admin={true}> */
+                <AdminTemplate>
+                  <PublisherEditPage />
+                </AdminTemplate>
+                /*    </ProtectedRoute> */
               }
             />
             <Route path="users">
@@ -51,11 +73,11 @@ const CustomRoutes = () => {
               <Route
                 index
                 element={
-                  <ProtectedRoute admin={true}>
-                    <AdminTemplate>
-                      <BooksPage />
-                    </AdminTemplate>
-                  </ProtectedRoute>
+                  /*  <ProtectedRoute admin={true}> */
+                  <AdminTemplate>
+                    <BooksPage />
+                  </AdminTemplate>
+                  /*   </ProtectedRoute> */
                 }
               />
               <Route
