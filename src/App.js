@@ -1,5 +1,13 @@
+import Books from "./components/admins/books/books";
+
 function App() {
-  return <></>;
+  return (<>
+    <div><Books/></div>
+    </>);
+
+
+  
+  
 }
 
 export default App;

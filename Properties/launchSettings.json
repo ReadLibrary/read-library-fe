@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "read_library_fe": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7099",
+      "launchBrowser": false
+    }
+  }
+}
