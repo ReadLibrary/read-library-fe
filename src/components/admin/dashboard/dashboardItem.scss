@@ -13,6 +13,8 @@
 
 .dashboard-item {
   @include m.flexbox(row, flex-start, flex-start, 30px);
+  width: 20vw;
+  height: 20vh;
 
   padding: 1rem;
   background-color: v.$color2;
@@ -22,7 +24,7 @@
     cursor: pointer;
   }
   svg {
-    font-size: 7rem;
+    font-size: 6rem;
     color: v.$color5;
   }
 

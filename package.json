@@ -13,6 +13,7 @@
     "buffer": "^6.0.3",
     "encrypt-storage": "^2.12.11",
     "formik": "^2.2.9",
+    "mdb-react-ui-kit": "^5.0.0",
     "moment": "^2.29.4",
     "react": "^18.2.0",
     "react-bootstrap": "^2.5.0",
@@ -28,6 +29,7 @@
     "sweetalert2": "^11.4.33",
     "swiper": "^8.4.2",
     "web-vitals": "^2.1.4",
+    "react-iframe": "^1.8.5",
     "yup": "^0.32.11"
   },
   "scripts": {
