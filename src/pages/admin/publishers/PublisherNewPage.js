@@ -1,11 +1,11 @@
 import React from "react";
-import { Breadcrumb } from "react-bootstrap";
+import BreadCrumb from "../../../components/admin/common/BreadCrump";
 import CreatePub from "../../../components/admin/publisher/CreatePub";
 
 const PublisherNewPage = () => {
   return (
     <div>
-      <Breadcrumb />
+      <BreadCrumb />
       <CreatePub />
     </div>
   );

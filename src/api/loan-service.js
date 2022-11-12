@@ -21,6 +21,7 @@ export const updateLoan = (loan, id) => {
 };
 
 export const findAllLoansByUserId = (
+  //herseyi getiren method
   userId,
   page = 0,
   size = 20,

@@ -8,7 +8,6 @@ const UsersPage = () => {
     <>
       <BreadCrump />
       <UserSearch />
-      <Users />
     </>
   );
 };

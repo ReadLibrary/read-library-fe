@@ -12,8 +12,17 @@ export const login = (credentials) => {
   return axios.post(`${API_URL}/signin`, credentials);
 };
 
-export const getUser = () => {
-  return axios.get(`${API_URL}/users/{id}`, { headers: authHeader() });
+export const getUserByName = (
+  name,
+  page = 0,
+  size = 20,
+  sort = "id",
+  type = "DESC"
+) => {
+  return axios.get(
+    `${API_URL}/users/?name=${name}&sort=${sort}&type=${type}&size=${size}&page=${page}`,
+    { headers: authHeader() }
+  );
 };
 
 export const getUserAuthUser = () => {
@@ -27,6 +36,7 @@ export const getAllUserLoansPage = (
   type = "DESC"
 ) => {
   return axios.get(
+    //role mole hepsi geliyoor
     `${API_URL}/user/loans?page=${page}&size=${size}&sort=${sort}&type=${type}`,
     { headers: authHeader() }
   );

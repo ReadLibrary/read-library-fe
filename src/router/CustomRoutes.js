@@ -21,6 +21,12 @@ import HomePage from "../pages/visitor/HomePage";
 import NotFound from "../components/common/not-found/NotFound";
 import LibraryPage from "../pages/visitor/LibraryPage";
 import BookNewPage from "../pages/admin/books/BookNewPage";
+import UserNewPage from "../pages/admin/users/UserNewPage";
+import ReportsPage from "../pages/admin/reports/ReportsPage";
+import ExpiredBooksPage from "../pages/admin/reports/ExpiredBooksPage";
+import MostBorrowersBooksPage from "../pages/admin/reports/MostBorrowersBooksPage";
+import MostPopularBooksPage from "../pages/admin/reports/MostPopularBooksPage";
+import UnreturnedBooksPage from "../pages/admin/reports/UnreturnedBooksPage";
 
 const CustomRoutes = () => {
   return (
@@ -74,16 +80,59 @@ const CustomRoutes = () => {
                 /*   </ProtectedRoute> */
               }
             />
-            <Route
-              path="report"
-              element={
-                /*  <ProtectedRoute admin={true}> */
-                <AdminTemplate>
-                  <DashBoardPage />
-                </AdminTemplate>
-                /*    </ProtectedRoute> */
-              }
-            />
+            <Route path="reports">
+              <Route
+                index
+                element={
+                  /*  <ProtectedRoute admin={true}> */
+                  <AdminTemplate>
+                    <ReportsPage />
+                  </AdminTemplate>
+                  /*    </ProtectedRoute> */
+                }
+              />
+              <Route
+                path="expired-books"
+                element={
+                  /*  <ProtectedRoute admin={true}> */
+                  <AdminTemplate>
+                    <ExpiredBooksPage />
+                  </AdminTemplate>
+                  /*    </ProtectedRoute> */
+                }
+              />
+              <Route
+                path="most-borrowers"
+                element={
+                  /*  <ProtectedRoute admin={true}> */
+                  <AdminTemplate>
+                    <MostBorrowersBooksPage />
+                  </AdminTemplate>
+                  /*    </ProtectedRoute> */
+                }
+              />
+              <Route
+                path="most-popular"
+                element={
+                  /*  <ProtectedRoute admin={true}> */
+                  <AdminTemplate>
+                    <MostPopularBooksPage />
+                  </AdminTemplate>
+                  /*    </ProtectedRoute> */
+                }
+              />
+              <Route
+                path="unreturned-books"
+                element={
+                  /*  <ProtectedRoute admin={true}> */
+                  <AdminTemplate>
+                    <UnreturnedBooksPage />
+                  </AdminTemplate>
+                  /*    </ProtectedRoute> */
+                }
+              />
+            </Route>
+
             <Route path="publishers">
               <Route
                 index
@@ -165,6 +214,16 @@ const CustomRoutes = () => {
                   /*  <ProtectedRoute admin={true}> */
                   <AdminTemplate>
                     <UserEditPage />
+                  </AdminTemplate>
+                  /*  </ProtectedRoute> */
+                }
+              />
+              <Route
+                path="user-new-page"
+                element={
+                  /*  <ProtectedRoute admin={true}> */
+                  <AdminTemplate>
+                    <UserNewPage />
                   </AdminTemplate>
                   /*  </ProtectedRoute> */
                 }

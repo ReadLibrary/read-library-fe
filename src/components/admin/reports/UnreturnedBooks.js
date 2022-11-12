@@ -1,34 +1,38 @@
 import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
-import { Link, useNavigate } from "react-router-dom";
-import { getUsersByPage } from "../../../api/user-service";
-import "./users.scss";
+import "./reports.scss";
 import Loading from "../../common/loading/loading";
+import { getReportsUnreturnedWithPage } from "../../../api/report-service";
 
-const Users = () => {
-  const columns = [
-    {
-      name: "id",
-      selector: (row) => row.id,
-    },
-    {
-      name: "User Name",
-      selector: (row) => row.firstName,
-    },
-  ];
+const columns = [
+  {
+    name: "Book id",
+    selector: (row) => row.id,
+  },
+  {
+    name: "Books Name",
+    selector: (row) => row.name,
+  },
+  {
+    name: "ISBN",
+    selector: (row) => row.isbn,
+  },
+];
 
-  const [users, setUsers] = useState([]);
+const UnreturnedBooks = () => {
+  const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [totalRows, setTotalRows] = useState(0);
   const [perPage, setPerPage] = useState(10);
-  const navigate = useNavigate();
 
-  const loadUsers = async (page) => {
+  const loadBooks = async (page) => {
     setLoading(true);
     try {
-      const resp = await getUsersByPage(page, perPage);
-      setUsers(resp.data.content);
+      const resp = await getReportsUnreturnedWithPage(page, perPage);
+      console.log(resp.data);
+      setBooks(resp.data.content);
       setTotalRows(resp.data.totalElements);
+      console.log(resp.data.totalElements);
     } catch (err) {
       console.log(err);
     } finally {
@@ -37,24 +41,21 @@ const Users = () => {
   };
   const handlePageChange = (page) => {
     // Data table componenti 1 tabanlı, bizim api 0 tabanlı çalıştığı için 1 eksiltip gönderiyoruz
-    loadUsers(page - 1);
+    loadBooks(page - 1);
   };
   const handlePerRowsChange = async (newPerPage, page) => {
-    loadUsers(page - 1);
+    loadBooks(page - 1);
     setPerPage(newPerPage);
   };
 
-  const handlePage = (row) => {
-    navigate(`/budak/users/${row.id}`);
-  };
   useEffect(() => {
-    loadUsers();
+    loadBooks();
   }, []);
   return (
-    <div className="users">
+    <div className="unreturned-books">
       <DataTable
         columns={columns}
-        data={users}
+        data={books}
         progressPending={loading}
         progressComponent={<Loading />}
         pagination
@@ -62,10 +63,9 @@ const Users = () => {
         paginationTotalRows={totalRows}
         onChangeRowsPerPage={handlePerRowsChange}
         onChangePage={handlePageChange}
-        onRowClicked={handlePage}
       />
     </div>
   );
 };
 
-export default Users;
+export default UnreturnedBooks;

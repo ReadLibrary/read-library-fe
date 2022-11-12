@@ -1,34 +1,48 @@
 import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
-import { Link, useNavigate } from "react-router-dom";
-import { getUsersByPage } from "../../../api/user-service";
-import "./users.scss";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { findAllLoansByUserId } from "../../../api/loan-service";
 import Loading from "../../common/loading/loading";
 
-const Users = () => {
-  const columns = [
-    {
-      name: "id",
-      selector: (row) => row.id,
-    },
-    {
-      name: "User Name",
-      selector: (row) => row.firstName,
-    },
-  ];
+const columns = [
+  {
+    name: "id",
+    selector: (row) => row.id,
+  },
+  {
+    name: "Book Name",
+    selector: (row) => row.bookId.name,
+  },
+  {
+    name: "Loan Date",
+    selector: (row) => row.loanDate,
+  },
+  {
+    name: "Expire Date",
+    selector: (row) => row.expireDate,
+  },
+  {
+    name: "Return Date",
+    selector: (row) => row.returnDate,
+  },
+];
 
-  const [users, setUsers] = useState([]);
+const Loan = () => {
+  const [loans, setLoans] = useState([]);
   const [loading, setLoading] = useState(true);
   const [totalRows, setTotalRows] = useState(0);
   const [perPage, setPerPage] = useState(10);
   const navigate = useNavigate();
+  const { userId } = useParams();
 
-  const loadUsers = async (page) => {
+  const loadLoans = async (page) => {
     setLoading(true);
     try {
-      const resp = await getUsersByPage(page, perPage);
-      setUsers(resp.data.content);
+      const resp = await findAllLoansByUserId(userId, page, perPage);
+      console.log(resp.data);
+      setLoans(resp.data);
       setTotalRows(resp.data.totalElements);
+      console.log(resp.data.totalElements);
     } catch (err) {
       console.log(err);
     } finally {
@@ -37,24 +51,24 @@ const Users = () => {
   };
   const handlePageChange = (page) => {
     // Data table componenti 1 tabanlı, bizim api 0 tabanlı çalıştığı için 1 eksiltip gönderiyoruz
-    loadUsers(page - 1);
+    loadLoans(page - 1);
   };
   const handlePerRowsChange = async (newPerPage, page) => {
-    loadUsers(page - 1);
+    loadLoans(page - 1);
     setPerPage(newPerPage);
   };
 
   const handlePage = (row) => {
-    navigate(`/budak/users/${row.id}`);
+    navigate(`/budak/loan-edit/${row.id}`);
   };
   useEffect(() => {
-    loadUsers();
+    loadLoans();
   }, []);
   return (
-    <div className="users">
+    <div className="loans">
       <DataTable
         columns={columns}
-        data={users}
+        data={loans}
         progressPending={loading}
         progressComponent={<Loading />}
         pagination
@@ -68,4 +82,4 @@ const Users = () => {
   );
 };
 
-export default Users;
+export default Loan;

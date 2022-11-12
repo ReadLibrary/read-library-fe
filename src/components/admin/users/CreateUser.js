@@ -1,32 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import "./createUser.scss";
+import { createUser } from "../../../api/user-service";
 import InputMask from "react-input-mask-next";
 import { Form, Button, Spinner } from "react-bootstrap";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { question, toast } from "../../../utils/functions/swal";
-import {
-  deleteUserById,
-  getUserById,
-  updateUserByAdmin,
-} from "../../../api/user-service";
-import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "../../../utils/functions/swal";
 import PasswordInput from "../../common/password-input/password-input";
 
-const UserUpdateForm = () => {
+const CreateUser = () => {
+  const [text, setText] = useState("");
+  const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [deleting, setDeleting] = useState(false);
-  const { userId } = useParams();
-  const [user, setUser] = useState([]);
-  const navigate = useNavigate();
 
   const initialValues = {
     firstName: "",
     lastName: "",
-    score: 0,
     address: "",
     phone: "",
-    email: "",
     birthDate: "",
+    email: "",
     password: "",
   };
 
@@ -34,7 +27,6 @@ const UserUpdateForm = () => {
     firstName: Yup.string().required("Please enter  first name"),
     lastName: Yup.string().required("Please enter  last name"),
     address: Yup.string().required("Please enter  address"),
-    score: Yup.number().required("Please enter score"),
     phone: Yup.string().required("Please enter phone"),
     birthDate: Yup.string().required("Please enter  birthDate"),
     email: Yup.string().email().required("Please enter  email"),
@@ -50,8 +42,8 @@ const UserUpdateForm = () => {
   const onSubmit = async (values) => {
     setLoading(true);
     try {
-      await updateUserByAdmin(userId, values);
-      toast("updated successfully!", "success");
+      await createUser(values);
+      toast("created successfully!", "success");
       formik.resetForm();
     } catch (err) {
       console.log(err);
@@ -59,58 +51,11 @@ const UserUpdateForm = () => {
       setLoading(false);
     }
   };
-
   const formik = useFormik({
     initialValues,
     validationSchema,
     onSubmit,
   });
-
-  const removeUser = async () => {
-    setDeleting(true);
-    try {
-      await deleteUserById(userId);
-      toast("User was deleted", "success");
-      navigate(-1);
-    } catch (err) {
-      toast(err.response.data.message, "error");
-    } finally {
-      setDeleting(false);
-    }
-  };
-
-  const handleDelete = () => {
-    question(
-      "Are you sure to delete?",
-      "You won't be able to revert this!"
-    ).then((result) => {
-      if (result.isConfirmed) {
-        removeUser();
-      }
-    });
-  };
-
-  const getUserInfo = async () => {
-    setLoading(true);
-
-    try {
-      const resp = await getUserById(88); //getirmiyuor cors hatasi
-      console.log(userId);
-      console.log(resp.data);
-
-      /*   const list = Object.entries(resp.data); */
-      // setUser(user);
-      console.log(resp.data);
-    } catch (err) {
-      console.log(err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    getUserInfo(userId);
-  }, []);
 
   return (
     <Form noValidate onSubmit={formik.handleSubmit}>
@@ -136,18 +81,6 @@ const UserUpdateForm = () => {
         />
         <Form.Control.Feedback type="invalid">
           {formik.errors.lastName}
-        </Form.Control.Feedback>
-      </Form.Group>
-      <Form.Group className="mb-3">
-        <Form.Label>Score</Form.Label>
-        <Form.Control
-          type="number"
-          {...formik.getFieldProps("score")}
-          isInvalid={formik.touched.score && formik.errors.score}
-          isValid={formik.touched.score && !formik.errors.score}
-        />
-        <Form.Control.Feedback type="invalid">
-          {formik.errors.score}
         </Form.Control.Feedback>
       </Form.Group>
 
@@ -210,19 +143,12 @@ const UserUpdateForm = () => {
           error={formik.errors.password}
         />
       </Form.Group>
-      <Button
-        variant="danger"
-        type="submit"
-        disabled={deleting}
-        onClick={handleDelete}
-      >
-        {deleting && <Spinner animation="border" size="sm" />} Delete
-      </Button>
+
       <Button variant="primary" type="submit" disabled={loading}>
-        {loading && <Spinner animation="border" size="sm" />} Update
+        {loading && <Spinner animation="border" size="sm" />} Create
       </Button>
     </Form>
   );
 };
 
-export default UserUpdateForm;
+export default CreateUser;

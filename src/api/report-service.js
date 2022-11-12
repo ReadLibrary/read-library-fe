@@ -8,7 +8,7 @@ export const getSomeStatistics = () => {
   return axios.get(`${API_URL}/report`, { headers: authHeader() });
 };
 
-export const getReportsWithPage = (
+export const getReportsUnreturnedWithPage = (
   page = 0,
   size = 20,
   sort = "name",

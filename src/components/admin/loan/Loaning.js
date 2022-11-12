@@ -31,36 +31,21 @@ const Loaning = () => {
   const [text, setText] = useState(0);
   const [loans, setLoans] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [totalRows, setTotalRows] = useState(0);
-  const [perPage, setPerPage] = useState(10);
-  const navigate = useNavigate();
 
-  const loadLoanings = async (page) => {
+  const loadLoanings = async (text) => {
     setLoading(true);
     try {
-      const resp = await findAllLoansByUserId(page, perPage);
-      setLoans(resp.data.content);
-      setTotalRows(resp.data.totalElements);
-      console.log(resp.data.totalElements);
+      const resp = await findAllLoansByUserId(text);
+      setLoans(resp.data);
+
+      console.log(resp);
     } catch (err) {
       console.log(err);
     } finally {
       setLoading(false);
     }
   };
-  const handlePageChange = (page) => {
-    // Data table componenti 1 tabanlı, bizim api 0 tabanlı çalıştığı için 1 eksiltip gönderiyoruz
-    loadLoanings(page - 1);
-  };
-  const handlePerRowsChange = async (newPerPage, page) => {
-    loadLoanings(page - 1);
-    setPerPage(newPerPage);
-  };
 
-  /*   const handlePage = (row) => {
-    navigate(`/budak/publishers/${row.id}`);
-  };
- */
   return (
     <>
       <div className="create text-end">
@@ -75,24 +60,13 @@ const Loaning = () => {
           type="submit"
           onClick={() => {
             loadLoanings(text);
-            setText("");
+            setText(0);
           }}
         >
-          Create Publisher
+          Enter User Id
         </Button>
         {!loading && (
-          <DataTable
-            columns={columns}
-            data={loans}
-            progressPending={loading}
-            /*    progressComponent={<Loading />} */
-            pagination
-            paginationServer
-            paginationTotalRows={totalRows}
-            onChangeRowsPerPage={handlePerRowsChange}
-            onChangePage={handlePageChange}
-            /*   onRowClicked={handlePage} */
-          />
+          <DataTable columns={columns} data={loans} progressPending={loading} />
         )}
       </div>
     </>

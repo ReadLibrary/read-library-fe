@@ -1,7 +1,7 @@
 @use "../../../assets/scss/mixins" as m;
 @use "../../../assets/scss/variables" as v;
 
-.publishers {
+.users {
   @include m.reset-list();
   padding: 20px 15px 50px 0;
   background-color: v.$color5;
